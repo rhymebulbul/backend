@@ -1,18 +1,14 @@
 const { MongoClient } = require('mongodb');
+const { userName,password,DB } = require('./db.config.js')
 
 
 
-const userName = "FIT4002";
-const password = "monashFIT4002";
-
-// const { asd } = require('./test')
-// console.log(asd);
 // var jsonResult = require('./public_function.js')
 // jsonResult('ok','test');
 
 
 
-const uri = "mongodb+srv://" + userName + ":" + password + "@fit4002-team04.ep77oco.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://" + userName + ":" + password + "@" + DB + ".ep77oco.mongodb.net/?retryWrites=true&w=majority";
 
 // Create a new MongoClient
 const client = new MongoClient(uri, {
