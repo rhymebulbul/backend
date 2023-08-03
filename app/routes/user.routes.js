@@ -14,13 +14,4 @@ module.exports = function(app) {
 
   app.get("/api/test/user", [authJwt.verifyToken]);
 
-  app.get(
-    "/api/test/mod",
-    [authJwt.verifyToken]
-  );
-
-  app.get(
-    "/api/test/admin",
-    [authJwt.verifyToken]
-  );
 };
