@@ -19,18 +19,16 @@ exports.signup = (req, res) => {
 
     res.send({ 
         message: "User was registered successfully!",
-        user: user
     });
      
     });
 };
 
 
-exports.signin = (req, res) => {
-    User.findOne({
+exports.signin = async (req, res) => {
+    await User.findOne({
         username: req.body.username,
-    })
-        .exec((err, user) => {
+    }).exec((err, user) => {
         if (err) {
             res.status(500).send({ message: err });
             return;
