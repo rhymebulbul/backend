@@ -1,21 +1,22 @@
 // Import
 const express = require('express')
 const cors = require("cors")
+const config = require("./config/auth.config")
 const cookieSession = require("cookie-session")
-const { userName,password,DB } = require('./config/db.config.js')
+const { USERNAME,PASSWORD,DATABASE,CLUSTER } = require('./config/db.config.js')
 const db = require("./models/index.js")
+const session = require('express-session')
+
 
 
 const app = express()
 const PORT = 8081
 
-const user = db.user;
-
 var corsOptions = {
     origin: `http://localhost:${PORT}`
 };
 
-db.mongoose.connect(`mongodb+srv://${userName}:${password}@${DB}.ep77oco.mongodb.net/fit4002-project?retryWrites=true&w=majority`, {
+db.mongoose.connect(`mongodb+srv://${USERNAME}:${PASSWORD}@${CLUSTER}.ep77oco.mongodb.net/${DATABASE}?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -40,7 +41,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cookieSession({
     name: "persona-session",
-    keys: ["COOKIE_SECRET"], // should use as secret environment variable
+    keys: ["FIT4002-PROJECT"], // should use as secret environment variable
     httpOnly: true
   })
 );
@@ -50,27 +51,10 @@ app.get('/', (req, res) => {
   res.json({ message: "Welcome."});
 })
 
-
-
-
-//post
-// const bodyParser = require('body-parser')
-
-// app.use(bodyParser.urlencoded({
-//     extended: true
-// }));
-// app.use(bodyParser.json());
-// app.post("/login", (req, res) => {
-//     console.log(req.body)
-//     res.json({
-//         post_result:'ok',
-//         body: req.body,
-//     })
-// })
-
 // routes
 require('./routes/auth.routes.js')(app);
 require('./routes/user.routes.js')(app);
+
 
 // set port, listen for requests
 app.listen(PORT, (err) => {

@@ -1,5 +1,6 @@
 module.exports = {
-    DB: "fit4002-team04",
-    userName: "FIT4002",
-    password: "monashFIT4002"
+    CLUSTER: "fit4002-team04",
+    DATABASE: "fit4002-project",
+    USERNAME: "FIT4002",
+    PASSWORD: "monashFIT4002"
   };

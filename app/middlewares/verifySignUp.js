@@ -1,7 +1,7 @@
 const db = require("../models");
 const User = db.user;
 
-checkDuplicateUsernameOrEmail = async (req, res, next) => {
+checkDuplicateUsername = async (req, res, next) => {
   // Username
   const user = await User.findOne({
     username: req.body.username
@@ -20,7 +20,7 @@ checkDuplicateUsernameOrEmail = async (req, res, next) => {
 };
 
 const verifySignUp = {
-  checkDuplicateUsernameOrEmail
+  checkDuplicateUsername
 };
 
 module.exports = verifySignUp;

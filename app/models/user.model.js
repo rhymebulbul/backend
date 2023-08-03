@@ -7,7 +7,8 @@ const User = mongoose.model(
     password: String,
     personas: []
     
-  },{versionKey: false})
+  },{versionKey: false})         // set versionKey to false, when insert an new document without "__v" field
+                                 // if need version control can remove it.
 );
 
 module.exports = User;
