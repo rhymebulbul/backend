@@ -4,16 +4,10 @@ const User = mongoose.model(
   "user",
   new mongoose.Schema({
     username: String,
-    // email: String,
     password: String,
     personas: []
-    // roles: [
-    //   {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Role"
-    //   }
-    // ]
-  })
+    
+  },{versionKey: false})
 );
 
 module.exports = User;

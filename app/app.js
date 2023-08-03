@@ -15,13 +15,12 @@ var corsOptions = {
     origin: `http://localhost:${PORT}`
 };
 
-db.mongoose.connect(`mongodb+srv://${userName}:${password}@${DB}.ep77oco.mongodb.net/?retryWrites=true&w=majority`, {
+db.mongoose.connect(`mongodb+srv://${userName}:${password}@${DB}.ep77oco.mongodb.net/fit4002-project?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
   .then(() => {
     console.log("Successfully connect to MongoDB.");
-    initial();
   })
   .catch(err => {
     console.error("Connection error", err);
@@ -80,11 +79,5 @@ app.listen(PORT, (err) => {
     }
     console.log(`app is running on port: ${PORT}`);
   });
-
-function initial() {
-    // let count = user.estimatedDocumentCount();
-    // console.log(count);
-    console.log(1);
-}
 
 

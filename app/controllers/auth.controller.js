@@ -11,14 +11,16 @@ exports.signup = (req, res) => {
     password: bcrypt.hashSync(req.body.password, 8),
     personas: []
   });
-
   user.save((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
     }
 
-    res.send({ message: "User was registered successfully!" });
+    res.send({ 
+        message: "User was registered successfully!",
+        user: user
+    });
      
     });
 };
