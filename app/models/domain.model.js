@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 
-const User = mongoose.model(
-  "users",
+const Domain = mongoose.model(
+  "domains",
   new mongoose.Schema({
-    username: String,
-    password: String,
+    domainName: String,
+    possibleFactors: mongoose.Schema.Types.Array,
     personas: mongoose.Schema.Types.Array
     
   },{versionKey: false})         // set versionKey to false, when insert an new document without "__v" field
                                  // if need version control can remove it.
 );
 
-module.exports = User;
+module.exports = Domain;
