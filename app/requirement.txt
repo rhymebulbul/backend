@@ -1,9 +1,0 @@
-express
-mongoose 
-cors 
-cookie-session 
-jsonwebtoken 
-bcryptjs 
-mongodb
-
-npm install express mongoose@6.11.2 cors cookie-session jsonwebtoken bcryptjs mongodb --save
