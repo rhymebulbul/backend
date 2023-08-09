@@ -56,6 +56,7 @@ require('./routes/auth.routes.js')(app);
 require('./routes/user.routes.js')(app);
 require('./routes/domain.routes.js')(app);
 require('./routes/factor.routes')(app);
+require('./routes/persona.routes')(app);
 
 
 // set port, listen for requests
