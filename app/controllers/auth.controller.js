@@ -1,5 +1,6 @@
 const config = require("../config/auth.config");
 const db = require("../models");
+const gb = require("../global/global.js");
 const User = db.user;
 
 var jwt = require("jsonwebtoken");
@@ -56,6 +57,16 @@ exports.signin = async (req, res) => {
                                 });
     
         req.session.token = token;
+
+        gb.currentUser = new User({
+            username: user.username,
+            password: undefined,
+            personas: user.personas
+        })
+
+        gb.userId = user.id
+
+        console.log(gb.currentUser,gb.userId)
     
         res.status(200).send({
             id: user._id,
