@@ -40,3 +40,21 @@ exports.addDomain = (req,res) => {
         });
 
 }
+
+exports.addFactorToDomain = async (req,res) => {
+    await Domain.updateOne({domainName: req.body.domainName},
+       {$addToSet: {possibleFactors: req.body.factorName}} ).exec((err, domain) => {
+        if (err) {
+            res.status(500).send({ message: err });
+            return;
+        }
+    
+        if (!domain) {
+            return res.status(404).send({ message: "Domain Not found." });
+        }
+    
+        res.send({message: "Possible factor added successfully!"});
+        }
+    );
+
+}

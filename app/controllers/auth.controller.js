@@ -25,6 +25,22 @@ exports.signup = (req, res) => {
     });
 };
 
+exports.changePassword = async (req, res) => {
+    await User.updateOne({
+        username: req.body.username,
+    }, {password: bcrypt.hashSync(req.body.password, 8)}).exec((err, user) => {
+      if (err) {
+        res.status(500).send({ message: err });
+        return;
+      }
+  
+      res.send({ 
+          message: "User changed password successfully!",
+      });
+       
+      });
+  };
+
 
 exports.signin = async (req, res) => {
     await User.findOne({

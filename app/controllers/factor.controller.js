@@ -43,3 +43,21 @@ exports.addFactor = (req,res) => {
         });
 
 }
+
+exports.addDomainFreq = async (req,res) => {
+    await Factor.updateOne({factorName: req.body.factorName},
+       {$addToSet: {frequencyInDomain: req.body.domainName}} ).exec((err, factor) => {
+        if (err) {
+            res.status(500).send({ message: err });
+            return;
+        }
+    
+        if (!factor) {
+            return res.status(404).send({ message: "Factor Not found." });
+        }
+    
+        res.send({message: "Domain frequency updated successfully!"});
+        }
+    );
+
+}

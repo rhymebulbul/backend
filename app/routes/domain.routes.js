@@ -14,4 +14,6 @@ module.exports = function(app) {
 
     app.post("/api/domain/add", authJwt.verifyToken,controller.addDomain);
 
+    app.put("/api/domain/addFactor", controller.addFactorToDomain);
+
 };
