@@ -1,7 +1,7 @@
 const db = require("../models");
 const Domain = db.domain;
 
-
+// Retrieve existing domains
 exports.getAllDomain = async (req,res) => {
     await Domain.find(
         ).exec((err, domains) => {
@@ -20,6 +20,7 @@ exports.getAllDomain = async (req,res) => {
 
 }
 
+// Add new domains
 exports.addDomain = (req,res) => {
     const domain = new Domain({
         domainName: req.body.domainName,

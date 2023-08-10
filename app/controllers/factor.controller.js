@@ -1,7 +1,7 @@
 const db = require("../models");
 const Factor = db.factor;
 
-
+// Retrieve existing factor
 exports.getAllInterLayerFactors = async (req,res) => {
     await Factor.find(
         ).exec((err, factors) => {
@@ -19,7 +19,7 @@ exports.getAllInterLayerFactors = async (req,res) => {
     );
 
 }
-
+// Add new Factor
 exports.addFactor = (req,res) => {
     const factor = new Factor({
         factorName:        req.body.factorName,

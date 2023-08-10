@@ -1,7 +1,7 @@
 const db = require("../models");
 const Persona = db.persona;
 
-
+// Retrieve saved persona
 exports.getPersonaByDomain = async (req,res) => {
     await Persona.find(
         ).exec((err, personas) => {
@@ -19,7 +19,7 @@ exports.getPersonaByDomain = async (req,res) => {
     );
 
 }
-
+// Save generated Persona
 exports.addPersona = (req,res) => {
     const persona = new Persona({
         domainName: req.body.domainName,
