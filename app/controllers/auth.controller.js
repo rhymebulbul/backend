@@ -6,18 +6,20 @@ const User = db.user;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
+// Create & register a new user
 exports.signup = (req, res) => {
   const user = new User({
-    username: req.body.username,
-    password: bcrypt.hashSync(req.body.password, 8),
+    username: req.body.username,                      // Set Username
+    password: bcrypt.hashSync(req.body.password, 8),  // Set Password
     personas: []
   });
-  user.save((err, user) => {
+  // Save User
+  user.save((err, user) => {  
     if (err) {
       res.status(500).send({ message: err });
       return;
     }
-
+    // Confirm user registration
     res.send({ 
         message: "User was registered successfully!",
     });
@@ -42,10 +44,11 @@ exports.changePassword = async (req, res) => {
   };
 
 
+// Sign in for registered users
 exports.signin = async (req, res) => {
     await User.findOne({
         username: req.body.username,
-    }).exec((err, user) => {
+    }).exec((err, user) => { 
         if (err) {
             res.status(500).send({ message: err });
             return;
@@ -63,7 +66,7 @@ exports.signin = async (req, res) => {
         if (!passwordIsValid) {
             return res.status(401).send({ message: "Invalid Password!" });
         }
-    
+        // Validate User for 24 hours
         const token = jwt.sign({ id: user.id },
                                 config.secret,
                                 {
@@ -90,7 +93,7 @@ exports.signin = async (req, res) => {
         });
         });
 };
-
+// Allow user to signout
 exports.signout = async (req, res) => {
     try {
         req.session = null;

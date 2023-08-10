@@ -1,0 +1,9 @@
+stages:
+  - test
+
+unit_test:
+  stage: test
+  image: node:14
+  script:
+    - npm install
+    - npx mocha app/app.test.js
