@@ -9,7 +9,7 @@ exports.getAllInterLayerFactors = async (req,res) => {
             res.status(500).send({ message: err });
             return;
         }
-    
+
         if (!factors) {
             return res.status(404).send({ message: "Factor Not found." });
         }
@@ -45,13 +45,13 @@ exports.addFactor = (req,res) => {
 }
 
 exports.addDomainFreq = async (req,res) => {
-    await Factor.updateOne({factorName: req.body.factorName},
-       {$addToSet: {frequencyInDomain: req.body.domainName}} ).exec((err, factor) => {
+    await Factor.updateOne({facetName: req.body.factorName},
+       {frequencyInDomain: req.body.domainName} ).exec((err, factor) => {
         if (err) {
             res.status(500).send({ message: err });
             return;
         }
-    
+        console.log(factor);
         if (!factor) {
             return res.status(404).send({ message: "Factor Not found." });
         }

@@ -8,7 +8,7 @@ const Factor = mongoose.model(
     class:             String,
     humanFactor:       String,
     type:              String,
-    frequencyInDomain: mongoose.Schema.Types.Array
+    frequencyInDomain: mongoose.Schema.Types.Mixed
   },{versionKey: false})         // set versionKey to false, when insert an new document without "__v" field
                                  // if need version control can remove it.
 );
