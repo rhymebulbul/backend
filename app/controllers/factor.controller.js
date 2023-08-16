@@ -27,7 +27,7 @@ exports.addFactor = (req,res) => {
         class:             req.body.class,
         humanFactor:       req.body.humanFactor,
         type:              req.body.type,
-        frequencyInDomain: []
+        frequencyInDomain: new Map()
 
       });
     factor.save((err, factor) => {
@@ -45,15 +45,20 @@ exports.addFactor = (req,res) => {
 }
 
 exports.addDomainFreq = async (req,res) => {
-    await Factor.updateOne({facetName: req.body.factorName},
-       {frequencyInDomain: req.body.domainName} ).exec((err, factor) => {
+    const factor = await Factor.findOne({facetName: req.body.factorName});
+    let value = factor.frequencyInDomain.get(req.body.domainName);
+
+    // Find frequency value or set as one if not added in yet
+    if (value === undefined) {
+        factor.frequencyInDomain.set(req.body.domainName, 1);
+    } else {
+        factor.frequencyInDomain.set(req.body.domainName, value + 1);
+    }
+
+    factor.save((err, factor) => {
         if (err) {
             res.status(500).send({ message: err });
             return;
-        }
-        console.log(factor);
-        if (!factor) {
-            return res.status(404).send({ message: "Factor Not found." });
         }
     
         res.send({message: "Domain frequency updated successfully!"});
