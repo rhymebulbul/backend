@@ -22,7 +22,7 @@ exports.getAllInterLayerFactors = async (req,res) => {
 // Add new Factor
 exports.addFactor = (req,res) => {
     const factor = new Factor({
-        factorName:        req.body.factorName,
+        facetName:        req.body.factorName,
         layer:             req.body.layer,
         class:             req.body.class,
         humanFactor:       req.body.humanFactor,
