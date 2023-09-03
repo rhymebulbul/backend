@@ -1,13 +1,14 @@
 stages:
   - build
   - test
+  - .post
 
 
 build-code-job:
   stage: build
   script:
     - echo "Running Build..."
-    - npm run build
+    # - npm run build
 
 
 unit_test:
