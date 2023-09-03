@@ -1,9 +1,19 @@
 stages:
+  - build
   - test
+
+
+build-code-job:
+  stage: build
+  script:
+    - echo "Running Build..."
+    - npm run build
+
 
 unit_test:
   stage: test
   image: node:14
   script:
+    - echo "Running Tests..."
     - npm install
     - npx mocha app/app.test.js
