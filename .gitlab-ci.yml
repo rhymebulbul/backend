@@ -1,3 +1,7 @@
+image: node:14
+before_script:
+  - npm install
+
 stages:
   # - build
   - test
@@ -14,7 +18,6 @@ unit_test:
   image: node:14
   script:
     - echo "Running Tests..."
-    - npm install
     - npx mocha app/app.test.js
 
 # deploy-prod:
