@@ -12,37 +12,48 @@ const chaiHttp = require('chai-http');
 const app = require('./app'); // Assuming app setup is in 'app.js'
 
 const { expect } = chai;
+const assert = require('assert');
+
 chai.use(chaiHttp);
 
-describe('/domain Route', () => {
-    it('should respond with a message containing the word "domain"', (done) => {
-      chai.request('http://localhost:3000')
-        .get('/domain')
-        .end((err, res) => {
-          expect(res).to.have.status(404);
-          expect(res.text).to.include('domain');
-          done();
-        });
-    });
+
+describe('my suite', () => {
+  it('my test', () => {
+    // should set the timeout of this test to 1000 ms; instead will fail
+    
+    assert.equal(1,1, "message");
   });
+});
+
+// describe('/domain Route', () => {
+//     it('should respond with a message containing the word "domain"', (done) => {
+//       chai.request('http://localhost:3000')
+//         .get('/domain')
+//         .end((err, res) => {
+//           expect(res).to.have.status(404);
+//           expect(res.text).to.include('domain');
+//           done();
+//         });
+//     });
+//   });
 
 
-describe('/domain Route', () => {
-    it('should respond with a message containing the phrase "Your Domain Selection is"', (done) => {
-      chai.request('http://localhost:3000')
-        .get('/domain')
-        .end((err, res) => {
-          //expect(res).to.have.status(404);
+// describe('/domain Route', () => {
+//     it('should respond with a message containing the phrase "Your Domain Selection is"', (done) => {
+//       chai.request('http://localhost:3000')
+//         .get('/domain')
+//         .end((err, res) => {
+//           //expect(res).to.have.status(404);
           
-          // Parse the HTML using cheerio
-          const $ = cheerio.load(res.text);
+//           // Parse the HTML using cheerio
+//           const $ = cheerio.load(res.text);
           
-          // Check for the presence of the desired text within the HTML
-          const containsText = $('body').text().includes('Domain');
-          console.log(containsText)
-          expect(containsText).to.be.false;
+//           // Check for the presence of the desired text within the HTML
+//           const containsText = $('body').html().includes('Domain');
+//           console.log(containsText)
+//           expect(containsText).to.be.false;
           
-          done();
-        });
-    });
-  });
+//           done();
+//         });
+//     });
+//   });

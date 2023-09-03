@@ -17,3 +17,10 @@ unit_test:
     - echo "Running Tests..."
     - npm install
     - npx mocha app/app.test.js
+
+deploy-prod:
+  stage: deploy
+  environment: production
+  script:
+    - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
+  environment: production
