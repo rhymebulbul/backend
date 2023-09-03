@@ -16,6 +16,9 @@ stages:
 unit_test:
   stage: test
   image: ruby:2.7
+  tags:
+    - ruby
+    - docker
   script:
     - echo "Running Tests..."
     - npx mocha app/app.test.js
