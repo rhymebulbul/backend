@@ -6,7 +6,7 @@ const Factor = mongoose.model(
     facetName:        String,
     layer:             String,
     class:             String,
-    humanFactor:       String,
+    humanFactors:       String,
     type:              String,
     frequencyInDomain: { 
       type: Map,

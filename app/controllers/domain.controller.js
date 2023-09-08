@@ -28,7 +28,7 @@ exports.updatePossibleFactors = async (req,res) => {
 
     // Get all frequencies from factors in database
     let freqLst = allFactors.map(factor => { return {
-        name: factor.facetName,
+        name: factor.humanFactors,
         freq: factor.frequencyInDomain.get(req.body.domainName)
     }});
 
