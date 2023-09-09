@@ -25,7 +25,7 @@ exports.addFactor = (req,res) => {
         facetName:        req.body.factorName,
         layer:             req.body.layer,
         class:             req.body.class,
-        humanFactor:       req.body.humanFactor,
+        humanFactors:       req.body.humanFactor,
         type:              req.body.type,
         frequencyInDomain: new Map()
 
