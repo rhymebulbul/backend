@@ -23,7 +23,7 @@ exports.getPersonaByDomain = async (req,res) => {
 exports.addPersona = (req,res) => {
     const persona = new Persona({
         domainName: req.body.domainName,
-        otherLayer: req.body.otherLayer,
+        type: req.body.type,
         internalLayer: req.body.internalLayer,
         externalLayer: req.body.externalLayer
 
