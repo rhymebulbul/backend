@@ -7,4 +7,4 @@ bcryptjs
 mongodb
 express-session
 
-npm install express mongoose@6.11.2 cors cookie-session jsonwebtoken bcryptjs mongodb --save
+npm install express mongoose@6.11.2 cors cookie-session jsonwebtoken bcryptjs mongodb axios@1.4.0 dotenv@16.3.1 openai@3.3.0 --save

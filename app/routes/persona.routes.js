@@ -14,4 +14,8 @@ module.exports = function(app) {
 
     app.post("/api/persona/add", authJwt.verifyToken,controller.addPersona);
 
+    app.post("/api/persona/generatePersonas", controller.generatePersona);
+
+    app.post("/api/persona/generateStructuredPersonas", controller.generateStructuredPersona)
+
 };
