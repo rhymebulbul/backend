@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const Persona = mongoose.model(
   "personas",
   new mongoose.Schema({
-    domainName: String,
-    otherLayer: mongoose.Schema.Types.Mixed,
+    type: String,
+    domainName: mongoose.Schema.Types.Array,
     internalLayer: mongoose.Schema.Types.Mixed,
     externalLayer: mongoose.Schema.Types.Mixed
     

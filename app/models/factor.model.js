@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Factor = mongoose.model(
   "factors",
   new mongoose.Schema({
-    facetName:        String,
+    factorName:        String,
     layer:             String,
     class:             String,
     humanFactors:       String,

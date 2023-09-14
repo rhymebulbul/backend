@@ -57,9 +57,7 @@ exports.updatePossibleFactors = async (req,res) => {
 // Add new domains
 exports.addDomain = (req,res) => {
     const domain = new Domain({
-        domainName: req.body.domainName,
-        possibleFactors: [],
-        personas: []
+        domainName: req.body.domainName
 
       });
     domain.save((err, domain) => {
