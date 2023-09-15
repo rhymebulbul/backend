@@ -8,73 +8,74 @@ var bcrypt = require("bcryptjs");
 
 // Create & register a new user
 exports.signup = (req, res) => {
-  const user = new User({
-    username: req.body.username,                      // Set Username
-    password: bcrypt.hashSync(req.body.password, 8),  // Set Password
-  });
-  // Save User
-  user.save((err, user) => {  
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    }
-    // Confirm user registration
-    res.send({ 
-        message: "User was registered successfully!",
+    const user = new User({
+        username: req.body.username,                      // Set Username
+        password: bcrypt.hashSync(req.body.password, 8),  // Set Password
     });
-     
+    // Save User
+    user.save((err, user) => {
+        if (err) {
+            res.status(500).send({ message: err });
+            return;
+        }
+        // Confirm user registration
+        res.send({
+            message: "User was registered successfully!",
+        });
+
     });
 };
 
 exports.changePassword = async (req, res) => {
     await User.updateOne({
         username: req.body.username,
-    }, {password: bcrypt.hashSync(req.body.password, 8)}).exec((err, user) => {
-      if (err) {
-        res.status(500).send({ message: err });
-        return;
-      }
-  
-      res.send({ 
-          message: "User changed password successfully!",
-      });
-       
-      });
-  };
+    }, { password: bcrypt.hashSync(req.body.password, 8) }).exec((err, user) => {
+        if (err) {
+            res.status(500).send({ message: err });
+            return;
+        }
+
+        res.send({
+            message: "User changed password successfully!",
+        });
+
+    });
+};
 
 
 // Sign in for registered users
 exports.signin = async (req, res) => {
     await User.findOne({
         username: req.body.username,
-    }).exec((err, user) => { 
+    }).exec((err, user) => {
         if (err) {
             res.status(500).send({ message: err });
             return;
         }
-    
+
         if (!user) {
             return res.status(404).send({ message: "User Not found." });
         }
-    
+
         var passwordIsValid = bcrypt.compareSync(
             req.body.password,
             user.password
         );
-    
+
         if (!passwordIsValid) {
             return res.status(401).send({ message: "Invalid Password!" });
         }
         // Validate User for 24 hours
         const token = jwt.sign({ id: user.id },
-                                config.secret,
-                                {
-                                    algorithm: 'HS256',
-                                    allowInsecureKeySizes: true,
-                                    expiresIn: 86400, // 24 hours
-                                });
-    
-        req.session.token = token;
+            config.secret,
+            {
+                algorithm: 'HS256',
+                allowInsecureKeySizes: true,
+                expiresIn: 86400, // 24 hours
+            });
+
+        // Instead of setting it in the session, we set the Authorization header with the token
+        res.header('Authorization', 'Bearer ' + token);
 
         gb.currentUser = new User({
             username: user.username,
@@ -84,14 +85,16 @@ exports.signin = async (req, res) => {
 
         gb.userId = user.id
 
-        console.log(gb.currentUser,gb.userId)
-    
+        console.log(gb.currentUser, gb.userId)
+
         res.status(200).send({
             id: user._id,
             username: user.username,
+            message: "Authentication successful!"
         });
-        });
+    });
 };
+
 // Allow user to signout
 exports.signout = async (req, res) => {
     try {
@@ -100,4 +103,4 @@ exports.signout = async (req, res) => {
     } catch (err) {
         this.next(err);
     }
-    };
+};

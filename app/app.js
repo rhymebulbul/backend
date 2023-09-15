@@ -3,7 +3,7 @@ const express = require('express')
 const cors = require("cors")
 const config = require("./config/auth.config")
 const cookieSession = require("cookie-session")
-const { USERNAME,PASSWORD,DATABASE,CLUSTER } = require('./config/db.config.js')
+const { USERNAME, PASSWORD, DATABASE, CLUSTER } = require('./config/db.config.js')
 const db = require("./models/index.js")
 const session = require('express-session')
 
@@ -13,13 +13,14 @@ const app = express()
 const PORT = 8081
 
 var corsOptions = {
-    origin: `http://localhost:${PORT}`
+  origin: 'http://localhost:3000',
+  exposedHeaders: 'Authorization',
 };
 
 db.mongoose.connect(`mongodb+srv://${USERNAME}:${PASSWORD}@${CLUSTER}.ep77oco.mongodb.net/${DATABASE}?retryWrites=true&w=majority`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
   .then(() => {
     console.log("Successfully connect to MongoDB.");
   })
@@ -48,7 +49,7 @@ app.use(
 
 // original route
 app.get('/', (req, res) => {
-  res.json({ message: "Welcome."});
+  res.json({ message: "Welcome." });
 })
 
 // routes
@@ -61,10 +62,10 @@ require('./routes/persona.routes')(app);
 
 // set port, listen for requests
 app.listen(PORT, (err) => {
-    if (err) {
-        console.error("NOT FOUND.");
-    }
-    console.log(`app is running on port: ${PORT}`);
-  });
+  if (err) {
+    console.error("NOT FOUND.");
+  }
+  console.log(`app is running on port: ${PORT}`);
+});
 
 

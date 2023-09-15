@@ -8,8 +8,8 @@ const uri = "mongodb+srv://" + userName + ":" + password + "@fit4002-team04.ep77
 
 // Create a new MongoClient
 const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 });
 
 async function getUser(username, pwd) {
@@ -18,7 +18,7 @@ async function getUser(username, pwd) {
         // Find user by username
         await client.connect();
         user = await client.db("fit4002-project")
-        .collection(userCollectionName).findOne({userName: username, password: pwd});
+            .collection(userCollectionName).findOne({ userName: username, password: pwd });
     } finally {
         // Ensures that the client will close when you finish/error
         await client.close();
@@ -31,7 +31,7 @@ async function signUpUser(username, pwd) {
         // Find user by username
         await client.connect();
         user = await client.db("fit4002-project")
-        .collection(userCollectionName).insertOne({userName: username, password: pwd});
+            .collection(userCollectionName).insertOne({ userName: username, password: pwd });
     } finally {
         // Ensures that the client will close when you finish/error
         await client.close();
