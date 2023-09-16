@@ -8,8 +8,8 @@ const uri = "mongodb+srv://" + userName + ":" + password + "@fit4002-team04.ep77
 
 // Create a new MongoClient
 const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 });
 
 async function getDomains() {
@@ -18,7 +18,7 @@ async function getDomains() {
         // Find all domains
         await client.connect();
         domains = await client.db("fit4002-project")
-        .collection(domainCollectionName).find();
+            .collection(domainCollectionName).find();
     } finally {
         // Ensures that the client will close when you finish/error
         await client.close();
@@ -31,7 +31,7 @@ async function addDomain(name) {
         // Add new domain
         await client.connect();
         await client.db("fit4002-project")
-        .collection(domainCollectionName).insertOne({domainName: name});
+            .collection(domainCollectionName).insertOne({ domainName: name });
     } finally {
         // Ensures that the client will close when you finish/error
         await client.close();

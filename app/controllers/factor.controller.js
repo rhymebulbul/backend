@@ -1,9 +1,9 @@
 const db = require("../models");
 const Factor = db.factor;
 
-// Retrieve existing factor
+// Retrieve existing internal factor
 exports.getAllInterLayerFactors = async (req,res) => {
-    await Factor.find(
+    await Factor.find({ layer: "internal" }
         ).exec((err, factors) => {
         if (err) {
             res.status(500).send({ message: err });
@@ -19,6 +19,27 @@ exports.getAllInterLayerFactors = async (req,res) => {
     );
 
 }
+
+// Retrieve existing external factor
+exports.getAllExterLayerFactors = async (req,res) => {
+    await Factor.find({ layer: "external" }
+        ).exec((err, factors) => {
+        if (err) {
+            res.status(500).send({ message: err });
+            return;
+        }
+
+        if (!factors) {
+            return res.status(404).send({ message: "Factor Not found." });
+        }
+    
+        res.status(200).send({factors});
+        }
+    );
+
+}
+
+
 // Add new Factor
 exports.addFactor = (req,res) => {
     const factor = new Factor({
