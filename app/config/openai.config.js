@@ -1,4 +1,4 @@
 // Openai Key 
 module.exports = {
-    openaiKey: "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"
-  };
+  openaiKey: "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"
+};
