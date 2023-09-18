@@ -1,5 +1,6 @@
 const db = require("../models");
 const Persona = db.persona;
+const User = db.user;
 const { Configuration, OpenAIApi } = require("openai");
 const { openaiKey } = require("../config/openai.config");
 
@@ -21,28 +22,39 @@ exports.getPersonaByDomain = async (req, res) => {
     );
 
 }
-// Save generated Persona
 exports.addPersona = (req, res) => {
+
     const persona = new Persona({
         domainName: req.body.domainName,
         type: req.body.type,
-        internalLayer: req.body.internalLayer,
-        externalLayer: req.body.externalLayer
-
+        content: req.body.content,
+        userId: req.userId
     });
+
     persona.save((err, persona) => {
         if (err) {
             res.status(500).send({ message: err });
             return;
         }
 
-        res.send({
-            message: "Persona has been added successfully!",
-        });
+        // Associate persona with the user
+        User.findById(req.userId, (err, user) => {
+            if (err || !user) {
+                res.status(500).send({ message: 'User not found' });
+                return;
+            }
 
+            user.personas.push(persona._id);
+            user.save();
+
+            res.send({
+                message: "Persona has been added successfully!",
+            });
+        });
     });
 
 }
+
 
 
 

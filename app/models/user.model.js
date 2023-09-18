@@ -5,7 +5,12 @@ const User = mongoose.model(
   new mongoose.Schema({
     username: String,
     password: String,
-    personas: mongoose.Schema.Types.Array,  //only store the personas id
+    personas: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'personas'
+      }
+    ],
     userDomains: mongoose.Schema.Types.Array,  // only stroe the domain id
     userInternalFactors: mongoose.Schema.Types.Array, //only store the internal factors id
     userExternalFactors: mongoose.Schema.Types.Array // only store the external factors id
