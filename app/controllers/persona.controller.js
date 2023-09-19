@@ -49,11 +49,42 @@ exports.addPersona = (req, res) => {
 
             res.send({
                 message: "Persona has been added successfully!",
+                personaId: persona._id
             });
         });
     });
 
 }
+
+
+
+exports.updatePersona = (req, res) => {
+    const id = req.params.id;
+
+    // Check if there's actually data to update
+    if (!req.body) {
+        return res.status(400).send({
+            message: "Data to update can't be empty!"
+        });
+    }
+
+    Persona.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+        .then(data => {
+            if (!data) {
+                res.status(404).send({
+                    message: `Cannot update Persona with id=${id}. Maybe Persona was not found!`
+                });
+            } else {
+                res.send({ message: "Persona was updated successfully." });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Persona with id=" + id
+            });
+        });
+};
+
 
 
 

@@ -13,7 +13,7 @@ module.exports = function (app) {
     app.get("/api/persona/getByDomain", controller.getPersonaByDomain);
 
     app.post("/api/persona/add", authJwt.verifyToken, controller.addPersona);
-    //app.post("/api/persona/update", authJwt.verifyToken, controller.updatePersona);
+    app.put("/api/persona/:id", authJwt.verifyToken, controller.updatePersona);
 
     app.post("/api/persona/generateNarrativePersona", controller.generateNarrativePersona);
 
