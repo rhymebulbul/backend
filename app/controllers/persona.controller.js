@@ -3,7 +3,7 @@ const Persona = db.persona;
 const User = db.user;
 const { Configuration, OpenAIApi } = require("openai");
 const { openaiKey } = require("../config/openai.config");
-
+const { ObjectId } = require('mongodb');
 // Retrieve saved persona
 exports.getPersonaByDomain = async (req, res) => {
     await Persona.find(
@@ -28,9 +28,12 @@ exports.addPersona = (req, res) => {
         domainName: req.body.domainName,
         type: req.body.type,
         content: req.body.content,
-        userId: req.userId
-    });
+        internalFactors: req.body.internalFactors,
+        externalFactors: req.body.externalFactors,
+        userId: req.userId,
 
+    });
+    console.log(persona);
     persona.save((err, persona) => {
         if (err) {
             res.status(500).send({ message: err });
@@ -166,5 +169,36 @@ exports.generateStructuredPersona = async (req, res) => {
     } catch (error) {
         console.error("Error:", error.response?.data || error.message);
         res.status(500).json({ error: 'Failed to generate persona', details: error.response?.data || error.message });
+    }
+}
+
+exports.getUsersPersona = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const personas = await Persona.find({ user: userId }).populate('user').exec();
+
+        if (!personas.length) {
+            return res.status(404).json({ message: "No personas found for the specified user." });
+        }
+
+        res.json(personas);
+    } catch (error) {
+        res.status(500).json({ message: "Error retrieving personas.", error: error.message });
+    }
+}
+
+
+exports.getPersonaById = async (req, res) => {
+    try {
+
+        const personaId = new ObjectId(req.params.personaId);
+
+        const persona = await Persona.findById(personaId);
+        if (!persona) {
+            return res.status(404).json({ error: 'Persona not found' });
+        }
+        res.json(persona);
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
     }
 }

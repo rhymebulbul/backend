@@ -338,6 +338,20 @@ exports.getExternalFactors = async (req, res) => {
 }
 
 
+exports.getUsersPersona = async (req, res) => {
+  try {
+    const userIdString = req.userId;
+    const userId = new ObjectId(userIdString);
+    const personas = await Persona.find({ user: userId }).populate('user').exec();
 
+    if (!personas.length) {
+      return res.status(404).json({ message: "No personas found for the specified user." });
+    }
+
+    res.json(personas);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving personas.", error: error.message });
+  }
+};
 
 
