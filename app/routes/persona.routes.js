@@ -12,6 +12,7 @@ module.exports = function (app) {
 
     app.get("/api/persona/getByDomain", controller.getPersonaByDomain);
     app.get("/api/persona/narrativePersona/:personaId", controller.getPersonaById);
+    app.get("/api/persona/bulletPointPersona/:personaId", controller.getBulletPointPersonaById);
     app.post("/api/persona/add", authJwt.verifyToken, controller.addPersona);
     app.put("/api/persona/:id", authJwt.verifyToken, controller.updatePersona);
     app.get("/api/persona/getAllPersona", authJwt.verifyToken, controller.getUsersPersona);

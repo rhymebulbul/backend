@@ -202,3 +202,20 @@ exports.getPersonaById = async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 }
+
+
+exports.getBulletPointPersonaById = async (req, res) => {
+    try {
+
+        const personaId = new ObjectId(req.params.personaId);
+
+        const persona = await Persona.findById(personaId);
+        if (!persona) {
+            return res.status(404).json({ error: 'Persona not found' });
+        }
+        res.json(persona);
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
+    }
+
+}
